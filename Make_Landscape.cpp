@@ -16,8 +16,6 @@
 #include"randlib_par.h"
 #include"Functions.h"
 #include"Make_Landscape.h"
-#include<gsl/gsl_randist.h>
-#include<gsl/gsl_rng.h>
 
 using namespace std;
 

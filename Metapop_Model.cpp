@@ -29,8 +29,6 @@
 #include<sstream>
 #include<direct.h>
 #include<windows.h>
-#include<gsl/gsl_randist.h>
-#include<gsl/gsl_rng.h>
 #include"randlib_par.h"
 #include"Dispersal_Functions.h"
 #include"Functions.h"
@@ -139,56 +137,55 @@ int main(int argc, char*argv[])
 		
 	/*manually input parameter values*/
 
-		runs = 1; n_row = 1; n_col = 1; capacity = 1; sigma = 0, corr = 0; amp = 0; phase = 0; omega = 1, cap = 0,
-		dispersal = 1; kernel = 0; max_dist=12; disp_rate = 0.08, mean_dist = 5;
+		runs = 100; n_row = 1; n_col = 1; capacity = 1; sigma = 0, corr = 0; amp = 0; phase = 0; omega = 1, cap = 0,
+		dispersal = 0; kernel = 0; max_dist=12; disp_rate = 0.08, mean_dist = 5;
 		Rm = 2.69; gon_length = 3; gamma_e = .25; gamma_l = 0.07;  mu_v = 0.1; mu_l = 0.025; mu_e = 0.01;
-		init_v = 1; init_l = 6; seed_mos = 0; m = 4, divisions = 1;
+		init_v = 1; init_l = 1000; seed_mos = 0; m = 4, divisions = 1;
 
-	/*read in parameter values from file
+	/*read in parameter values from file*/
 
-		ifstream Params;
+		//ifstream Params;
 
-		string ParamFileName = argv[1];
-		Params.open(ParamFileName);
+		//string ParamFileName = argv[1];
+		//Params.open(ParamFileName);
 
-		string param_name, param_value_string;
+		//string param_name, param_value_string;
 
-		while (!Params.eof())
-		{
-			getline(Params, param_name, '\t');
-			getline(Params, param_value_string, '\n');;
+		//while (!Params.eof())
+		//{
+		//	getline(Params, param_name, '\t');
+		//	getline(Params, param_value_string, '\n');;
 
-			if (param_name == "runs")				runs = stoi(param_value_string);
-			if (param_name == "n_row")				n_row = stoi(param_value_string);
-			if (param_name == "n_col")				n_col = stoi(param_value_string);
-			if (param_name == "capacity")			capacity = stoi(param_value_string);
-			if (param_name == "sigma")				sigma = stod(param_value_string);
-			if (param_name == "corr")				corr = stod(param_value_string);
-			if (param_name == "amp")				amp = stod(param_value_string);
-			if (param_name == "phase")				phase = stod(param_value_string);
-			if (param_name == "omega")				omega = stod(param_value_string);
-			if (param_name == "cap")				cap = stod(param_value_string);
-			if (param_name == "dispersal")			dispersal = stoi(param_value_string);
-			if (param_name == "kernel")				kernel = stoi(param_value_string);
-			if (param_name == "max_dist")			max_dist = stod(param_value_string);
-			if (param_name == "disp_rate")			disp_rate = stod(param_value_string);
-			if (param_name == "mean_dist")			mean_dist = stod(param_value_string);
-			if (param_name == "Rm")					Rm = stod(param_value_string);
-			if (param_name == "interval")			interval = stoi(param_value_string);
-			if (param_name == "gamma_e")			gamma_e = stod(param_value_string);
-			if (param_name == "gamma_l")			gamma_l = stod(param_value_string);
-			if (param_name == "mu_e")				mu_e = stod(param_value_string);
-			if (param_name == "mu_l")				mu_l = stod(param_value_string);
-			if (param_name == "mu_v")				mu_v = stod(param_value_string);
-			if (param_name == "seed_lar")			seed_lar = stoi(param_value_string);
-			if (param_name == "seed_mos")			seed_mos = stoi(param_value_string);
-			if (param_name == "init_l")				init_l = stoi(param_value_string);
-			if (param_name == "init_v")				init_v = stoi(param_value_string);
-			if (param_name == "m")					m = stoi(param_value_string);
-			if (param_name == "divisions")			divisions = stoi(param_value_string);
-		}
+		//	if (param_name == "runs")				runs = stoi(param_value_string);
+		//	if (param_name == "n_row")				n_row = stoi(param_value_string);
+		//	if (param_name == "n_col")				n_col = stoi(param_value_string);
+		//	if (param_name == "capacity")			capacity = stoi(param_value_string);
+		//	if (param_name == "sigma")				sigma = stod(param_value_string);
+		//	if (param_name == "corr")				corr = stod(param_value_string);
+		//	if (param_name == "amp")				amp = stod(param_value_string);
+		//	if (param_name == "phase")				phase = stod(param_value_string);
+		//	if (param_name == "omega")				omega = stod(param_value_string);
+		//	if (param_name == "cap")				cap = stod(param_value_string);
+		//	if (param_name == "dispersal")			dispersal = stoi(param_value_string);
+		//	if (param_name == "kernel")				kernel = stoi(param_value_string);
+		//	if (param_name == "max_dist")			max_dist = stod(param_value_string);
+		//	if (param_name == "disp_rate")			disp_rate = stod(param_value_string);
+		//	if (param_name == "mean_dist")			mean_dist = stod(param_value_string);
+		//	if (param_name == "Rm")					Rm = stod(param_value_string);
+		//	if (param_name == "gon_length")			gon_length = stoi(param_value_string);
+		//	if (param_name == "gamma_e")			gamma_e = stod(param_value_string);
+		//	if (param_name == "gamma_l")			gamma_l = stod(param_value_string);
+		//	if (param_name == "mu_e")				mu_e = stod(param_value_string);
+		//	if (param_name == "mu_l")				mu_l = stod(param_value_string);
+		//	if (param_name == "mu_v")				mu_v = stod(param_value_string);
+		//	if (param_name == "seed_mos")			seed_mos = stoi(param_value_string);
+		//	if (param_name == "init_l")				init_l = stoi(param_value_string);
+		//	if (param_name == "init_v")				init_v = stoi(param_value_string);
+		//	if (param_name == "m")					m = stoi(param_value_string);
+		//	if (param_name == "divisions")			divisions = stoi(param_value_string);
+		//}
 
-		Params.close();*/
+		//Params.close();
 
 	/*length of model runs*/
 
